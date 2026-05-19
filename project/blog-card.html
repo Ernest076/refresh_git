@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Preview Card - Box Model Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F4D04E;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .blog-card {
+            /* Box Model Properties - demonstrates padding, margin, border */
+            width: 340px;
+            padding: 0;
+            margin: 20px;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+
+            /* Visual Properties */
+            background: #ffffff;
+            box-shadow: 8px 8px 0px 0px #000000;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+            z-index: 10;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 0px 0px #000000;
+        }
+
+        .card-image {
+            /* Box Model - width, height, padding */
+            width: 100%;
+            height: 200px;
+            padding: 0;
+            margin: 0;
+
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-badge {
+            /* Box Model - padding, margin, border-radius */
+            padding: 4px 12px;
+            margin: 16px;
+            border-radius: 4px;
+
+            /* Visual */
+            background: #F4D04E;
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 800;
+            color: #1a1a1a;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .card-content {
+            /* Box Model - padding demonstrates spacing */
+            padding: 24px;
+            margin: 0;
+        }
+
+        .card-date {
+            /* Box Model - margin for spacing */
+            padding: 0;
+            margin: 0 0 12px 0;
+
+            /* Visual */
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .card-title {
+            /* Box Model - margin for spacing between elements */
+            padding: 0;
+            margin: 0 0 12px 0;
+
+            /* Visual */
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.2;
+            transition: color 0.3s ease;
+        }
+
+        .blog-card:hover .card-title {
+            color: #F4D04E;
+        }
+
+        .card-description {
+            /* Box Model - margin for spacing */
+            padding: 0;
+            margin: 0 0 24px 0;
+
+            /* Visual */
+            font-size: 16px;
+            line-height: 1.5;
+            color: #6b6b6b;
+        }
+
+        .card-author {
+            /* Box Model - padding, margin */
+            padding: 0;
+            margin: 0;
+
+            /* Visual */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            /* Box Model - width, height, border */
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            border-radius: 0;
+
+            /* Visual */
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .author-avatar {
+            transform: scale(1.1);
+        }
+
+        .author-name {
+            /* Box Model */
+            padding: 0;
+            margin: 0;
+
+            /* Visual */
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        /* Decorative elements */
+        .deco-dots {
+            position: fixed;
+            display: grid;
+            grid-template-columns: repeat(3, 8px);
+            gap: 8px;
+        }
+
+        .deco-dots.top-right {
+            top: 40px;
+            right: 120px;
+        }
+
+        .deco-dots.bottom-right {
+            bottom: 80px;
+            right: 100px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #FFC0CB;
+            border-radius: 50%;
+        }
+
+        .deco-line {
+            position: fixed;
+            width: 60px;
+            height: 4px;
+            background: #87CEEB;
+            transform: rotate(-45deg);
+        }
+
+        .line-1 {
+            bottom: 120px;
+            left: 60px;
+        }
+
+        .line-2 {
+            bottom: 140px;
+            left: 40px;
+        }
+
+        .zigzag {
+            position: fixed;
+            top: 60px;
+            right: 80px;
+            width: 80px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative elements -->
+    <div class="deco-dots top-right">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="deco-dots bottom-right">
+        <div class="dot" style="background: #87CEEB;"></div>
+        <div class="dot" style="background: #87CEEB;"></div>
+        <div class="dot" style="background: #87CEEB;"></div>
+        <div class="dot" style="background: #87CEEB;"></div>
+        <div class="dot" style="background: #87CEEB;"></div>
+        <div class="dot" style="background: #87CEEB;"></div>
+    </div>
+
+    <div class="deco-line line-1"></div>
+    <div class="deco-line line-2"></div>
+
+    <div class="zigzag">
+        <svg viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 20 L10 5 L20 20 L30 5 L40 20 L50 5 L60 20 L70 5 L80 20" stroke="#FFC0CB" stroke-width="3" fill="none"/>
+        </svg>
+    </div>
+
+    <!-- Blog Card -->
+    <div class="blog-card">
+        <div class="card-image">
+            <svg width="100%" height="100%" viewBox="0 0 340 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="200" fill="white"/>
+
+                <!-- Abstract code illustration -->
+                <rect x="40" y="60" width="120" height="80" rx="8" fill="#F4D04E" stroke="#1a1a1a" stroke-width="2"/>
+
+                <!-- HTML tag symbol -->
+                <text x="70" y="110" font-family="monospace" font-size="32" font-weight="bold" fill="#1a1a1a">&lt;/&gt;</text>
+
+                <!-- Curved design element -->
+                <path d="M180 70 Q220 100 180 130" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+                <circle cx="200" cy="100" r="20" fill="#1a1a1a"/>
+                <circle cx="200" cy="100" r="12" fill="white"/>
+
+                <!-- Code brackets -->
+                <text x="230" y="90" font-family="monospace" font-size="24" font-weight="bold" fill="#1a1a1a">{</text>
+                <text x="250" y="110" font-family="monospace" font-size="24" font-weight="bold" fill="#1a1a1a">}</text>
+
+                <!-- Small accent circles -->
+                <circle cx="270" cy="140" r="4" fill="#1a1a1a"/>
+                <circle cx="285" cy="140" r="4" fill="#1a1a1a"/>
+                <circle cx="300" cy="140" r="4" fill="#1a1a1a"/>
+            </svg>
+
+            <span class="card-badge">Learning</span>
+        </div>
+
+        <div class="card-content">
+            <p class="card-date">Published 21 Dec 2023</p>
+
+            <h2 class="card-title">HTML & CSS foundations</h2>
+
+            <p class="card-description">
+                These languages are the backbone of every website, defining structure, content, and presentation.
+            </p>
+
+            <div class="card-author">
+                <div class="author-avatar">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="12" r="6" fill="white"/>
+                        <path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10" fill="white"/>
+                    </svg>
+                </div>
+                <p class="author-name">Ernest Mutua</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

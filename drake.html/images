@@ -1,0 +1,32 @@
+Create a folder called:
+
+```text
+images
+```
+
+Inside it add these files:
+
+```text
+drake1.jpg
+drake2.jpg
+drake3.jpg
+```
+
+You can use:
+- Drake album covers
+- Drake concert photos
+- Drake wallpapers
+
+Folder structure:
+
+```text
+project/
+│
+├── index.html
+├── style.css
+├── script.js
+└── images/
+    ├── drake1.jpg
+    ├── drake2.jpg
+    └── drake3.jpg
+```
