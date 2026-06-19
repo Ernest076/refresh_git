@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Father's Day Dad!</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .card {
+            margin: 50px auto;
+            max-width: 900px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+            animation: fadeIn 2s ease;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: gold;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .gallery img {
+            width: 220px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid gold;
+            transition: 0.4s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px gold;
+        }
+
+        .heart {
+            position: fixed;
+            color: red;
+            font-size: 25px;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {opacity:0; transform:translateY(40px);}
+            to {opacity:1; transform:translateY(0);}
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background: gold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Happy Father's Day Dad ❤️</h1>
+
+    <p>
+        Dear Dad,<br><br>
+        Thank you for your love, guidance, sacrifices,
+        and for always being there for us.
+        We are blessed to call you our father.
+        We love you very much.
+        <br><br>
+        Happy Father's Day!
+    </p>
+
+    <div class="gallery">
+        <img src="images/dad.jpg.jpg" alt="Dad">
+        <img src="images/dadandme.jpg.jpg" alt="Dad and Me">
+        <img src="images/family.jpg.jpg" alt="Family">
+        <img src="images/siblings.jpg.jpg" alt="Siblings">
+    </div>
+
+    <button onclick="showMessage()">
+        Click Me Dad!
+    </button>
+
+    <h2 id="message"></h2>
+</div>
+
+<script>
+function showMessage() {
+    document.getElementById("message").innerHTML =
+        "Dad, you are our hero and our greatest blessing. ❤️";
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
