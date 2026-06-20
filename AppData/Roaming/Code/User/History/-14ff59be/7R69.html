@@ -1,0 +1,257 @@
+/* ===== GOOGLE FONT ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* ===== BASE STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ===== HEADER ===== */
+.l-header {
+  width: 100%;
+  background: #111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.nav__logo {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.nav__list {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav__link {
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav__link:hover,
+.active-link {
+  color: #00bcd4;
+}
+
+/* ===== HOME ===== */
+.home {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  min-height: 100vh;
+  padding: 5rem 2rem;
+}
+
+.home__title {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.home__title-color {
+  color: #00bcd4;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: #00bcd4;
+  color: #fff;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: #0097a7;
+}
+
+/* ===== SOCIAL ICONS ===== */
+.home__social-icon {
+  font-size: 1.5rem;
+  color: #333;
+  margin-right: 1rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.home__social-icon:hover {
+  color: #00bcd4;
+  transform: scale(1.2);
+}
+
+/* ===== SECTIONS ===== */
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #111;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  width: 60px;
+  height: 3px;
+  background: #00bcd4;
+  display: block;
+  margin: 0.5rem auto;
+}
+
+/* ===== SKILLS ===== */
+.skills__data {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.skills__bar {
+  flex: 1;
+  height: 8px;
+  background: #ddd;
+  margin: 0 1rem;
+  border-radius: 5px;
+  position: relative;
+}
+
+/* Individual skill bars */
+.skills__html::after {
+  content: '';
+  width: 95%;
+  height: 100%;
+  background: #00bcd4; /* Teal */
+  position: absolute;
+  left: 0;
+  border-radius: 5px;
+}
+
+.skills__css::after {
+  content: '';
+  width: 85%;
+  height: 100%;
+  background: #ff9800; /* Orange */
+  position: absolute;
+  left: 0;
+  border-radius: 5px;
+}
+
+.skills__js::after {
+  content: '';
+  width: 75%;
+  height: 100%;
+  background: #f44336; /* Red */
+  position: absolute;
+  left: 0;
+  border-radius: 5px;
+}
+
+.skills__ux::after {
+  content: '';
+  width: 85%;
+  height: 100%;
+  background: #4caf50; /* Green */
+  position: absolute;
+  left: 0;
+  border-radius: 5px;
+}
+
+/* Robotics (new bar) */
+.skills__robotics::after {
+  content: '';
+  width: 90%;
+  height: 100%;
+  background: #9c27b0; /* Purple */
+  position: absolute;
+  left: 0;
+  border-radius: 5px;
+}
+
+/* ===== WORK ===== */
+.work__img img {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.work__img img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* ===== CONTACT FORM ===== */
+.contact__input, .contact__button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.contact__button {
+  background: #00bcd4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact__button:hover {
+  background: #0097a7;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.footer__icon {
+  color: #ddd;
+  margin: 0 0.5rem;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer__icon:hover {
+  color: #00bcd4;
+}
+
+/* ===== EXTRA FEATURES ===== */
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section fade-in animation */
+section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

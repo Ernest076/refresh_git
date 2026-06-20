@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1a227f",
+              "background-light": "#f6f6f8",
+              "background-dark": "#121320",
+            },
+            fontFamily: {
+              "display": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<header class="sticky top-0 z-30 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-3">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons text-white text-xl">point_of_sale</span>
+</div>
+<h1 class="font-bold text-lg tracking-tight">NexPOS</h1>
+</div>
+<button class="md:hidden p-2 text-slate-500">
+<span class="material-icons">menu</span>
+</button>
+</div>
+<div class="relative flex-1">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary text-sm" placeholder="Search by name, SKU, or barcode..." type="text"/>
+</div>
+<div class="hidden md:flex items-center gap-3">
+<button class="p-2 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-600 dark:text-slate-400">
+<span class="material-icons text-xl">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold">
+                    JD
+                </div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto p-4 pb-28">
+<nav class="flex items-center gap-2 overflow-x-auto no-scrollbar mb-6 py-1">
+<button class="px-5 py-2 bg-primary text-white rounded-full text-sm font-medium whitespace-nowrap shadow-sm">All Items</button>
+<button class="px-5 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-sm font-medium whitespace-nowrap hover:bg-slate-50">Beverages</button>
+<button class="px-5 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-sm font-medium whitespace-nowrap hover:bg-slate-50">Food &amp; Snacks</button>
+<button class="px-5 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-sm font-medium whitespace-nowrap hover:bg-slate-50">Merchandise</button>
+<button class="px-5 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-sm font-medium whitespace-nowrap hover:bg-slate-50">Limited Edition</button>
+<button class="px-5 py-2 bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/50 text-red-600 dark:text-red-400 rounded-full text-sm font-medium whitespace-nowrap">Sale</button>
+</nav>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+<!-- Product Card 1 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Artisan roasted coffee beans in a bag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFjmAdVdGNRXJ6BpXWcwbOC3XFJ-ctN9ot0359Q2jJs7AyUT0o6EHuI40kXT483lU3w3AmySqzVlaJsFzwIVq0Ys5bd8oN9kkggeUIKfgI_K9-IwJkZb0sDHYwP_kfhEeOGZP3shybFIkXYkteTFfCU5-kbbd8o2_zHUkKp6ZTfhBaxIeD_PFyXWVN0GJ7ZX9MQvFikU2TylZu1sYsb0jyY8HLk7rfRI4BQznlvV2tNBvsD1yJT1BXbbMwO2cmMpjYX4OLtXOQD9lW"/>
+<span class="absolute top-2 left-2 px-2 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded uppercase">New</span>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Beverages</p>
+<h3 class="text-sm font-semibold truncate mb-1">Ethiopian Blend</h3>
+<p class="text-primary font-bold">$18.50</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Fresh hot latte in a ceramic cup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU_0aJCrczuIjZ3KRpIscRgKYg0k56NPEJoNJuo3aQF-_lfjx49NSnjOcsqoL-tsmQMEBQRtIFFJxSl0RFls0XyVOXRpii10T6No6cqBbGpUq0XhOOGq5UBoJ1JYyf2-GAmGPfpLX4lr9vsmzQTg3U7LNXNCiGq3mrvwSDtQzCOOea01GUc2D-o1LpP0LZcuZHnT88XGKN47_S6jy7W_uCItLZi0Gghcby_GQneY4pBwF2UZrsSNb0VXsc0T9PIwMbW3calBYsC19P"/>
+<span class="absolute top-2 left-2 px-2 py-0.5 bg-orange-500 text-white text-[10px] font-bold rounded uppercase">Popular</span>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Beverages</p>
+<h3 class="text-sm font-semibold truncate mb-1">Signature Latte</h3>
+<p class="text-primary font-bold">$4.50</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Freshly baked butter croissant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW1UUk6AFcECxvvSwEUOl-ZF7sN961Ui-aD-ogi_d0_xpCcnR2rHxbHl5q2KGQKRaPGneYXBk6cF6890XJOWRgprfVDzThTK4aIBFIOh7K0C-vpNABzLPzXGFMx_cfPTgxq93lXjsmoKZzZrSKjsbHE3aQzqlGTW5AnrGRars00Z6n5gQYhcxyutamAyI--Ez19H1KKVNT9JxQxLB6P5KuNpY5rrHXmE2399EvwuuJQJvARZSb3PgE7TIfIPo7iQk9nagCesLDccTh"/>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Food</p>
+<h3 class="text-sm font-semibold truncate mb-1">Butter Croissant</h3>
+<p class="text-primary font-bold">$3.25</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Reusable ceramic travel mug" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGP3ZAM3EVFvLU-4wUM4EzQTjp0J1P8nhXE9M24cvPAgK44E6UAxdA2wprZDRyNxLFTGxEbnfXAhiiSYdeROJRXEhEcDL9y4ypFjaHCQ6LL0GrObjm9QMigic0VPwZLsOh7y_IKk_E8L5gH6QmnG4RCeAEKu8ukkSwyKMOy2N-o3q-0_maDanvgxxH_2-vyFhZ1dApza8tX7qiWGalahTQX1StqVNZ9LLXRkJ-rzCkh7Orv5obiq5l0eTUhijYKKWFRf8NdvVeT0ln"/>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Merchandise</p>
+<h3 class="text-sm font-semibold truncate mb-1">Travel Tumbler</h3>
+<p class="text-primary font-bold">$24.00</p>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Glass of iced matcha latte" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhhaQX1bcJEWxQqfFG290JrKFJ7yJCAoGCh7SPJXN_H3y3dBMTlPP3ls8sR0Tpa0Zsk41afVwu2oaBM1uYpHHuZQgfYfii3qr8o5Ffl3y10buM5dy05GGxfacVlPqbECQxuz0EITQx3czq2y1yqR5v05btSjPpQF-9mdYgc3zWDIfEbvkukzaB7uioOgQ6S3DT6RXoFUn1v5quIzzD--Pj9t5nq9bIniS8zK2Vn-8qQLd7WReYKWIjF2XhPCxHjOhGeTNAQxmSiOCN"/>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Beverages</p>
+<h3 class="text-sm font-semibold truncate mb-1">Iced Matcha</h3>
+<p class="text-primary font-bold">$5.75</p>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Slice of chocolate fudge cake" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgXzAtnhk61YouAigjkpbDormOPQzvROWnOGNw7t7QwJ6w9vlGNbXpHMElAitq2abIkVzYfNAuPOA5THKk7-_j30vX5ypnfTE66rVdRxpc1BnUMycrXjwXm-Ko-SzTsIoCdZTVaoQSZ2wJCNwnxZevz8EnBY8tRxxFypZUZKqT0_4cC8ngLFjmOvZLqGn3PafsziJqRLIkkrkF7ZsVxHQg8bTykR8Dx07sfSkcLAxTLRrr_iH43cqzzNsBfr7ax7OR5GlNLtTuzQHH"/>
+<span class="absolute top-2 left-2 px-2 py-0.5 bg-red-500 text-white text-[10px] font-bold rounded uppercase">Sale</span>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Food</p>
+<h3 class="text-sm font-semibold truncate mb-1">Choco Fudge Slice</h3>
+<p class="text-primary font-bold">$5.20 <span class="text-[10px] text-slate-400 line-through ml-1">$6.50</span></p>
+</div>
+</div>
+<!-- Product Card 7 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Double shot of espresso in small cup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_d6YCFDspdI8Kt10onuQP-2IL5NMcCy5Y4ziYIlPYUxwgvI0vM9lVTL3Ys_kUgyTA2tIdBEAn0VJKyCmEYvMrcbyVRtRuRdEhiEX2yxCOQqj4NYBNcq0k1l1Ax27Ir3rZ7n7M5-5NIlcdt86ttSkRxWkcvigiYxpVZUyAVmwS5q_qLqPE-zguvG-1MIh8LHQhLNlR-UDs2eBgJ-D8IhmCSi3VRVyBrE0Zjzx96pzRUuVt8vSJ1WbcsEKdLU0Y4x7G3Lx-C3YZalS"/>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Beverages</p>
+<h3 class="text-sm font-semibold truncate mb-1">Double Espresso</h3>
+<p class="text-primary font-bold">$3.00</p>
+</div>
+</div>
+<!-- Product Card 8 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Sparkling bottled water" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_rSW9h2qZwmEJJroVXnF0VLPRj_pib3Q7lj4i4ieIjBvguMatLWcZQeIFdYpM3xAWk3xz4Y_pRbA6-QvBuvLsEuPoWuAcDflIRGAjFS3wvQrrUPdxTCnWS5Ppkm4ccrlwZYUDA7pa9BVD36_MqojYd0xeB-s45p3AiA29ygaKw9VwLQ5jtzTHld0ewCnMnmDtBviMjgXkYDOeR-wkUsh2jW-cd01hlpvWH38hIAOYijrI8KOOsSZd8siaP99ctqhcTwSEjYbtwOfU"/>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Beverages</p>
+<h3 class="text-sm font-semibold truncate mb-1">Sparkling Water</h3>
+<p class="text-primary font-bold">$2.50</p>
+</div>
+</div>
+<!-- Product Card 9 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Simple black cotton t-shirt with logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBezVufD4tfSCH0OvaqxQFDwMHczwPIwVrZDVSaTrTRg2YTSyTCsGXRcuCpZutlFEmpozJWEZL6U5QoSdwydKRNQAF_MgPK5nSxrnAReo9zUNbPwV-dXfn9RbxebASCqbMQZ6CRlqTR8Rw5mTfW--wGYGiViLOtXF7jODy7uhCIeV_f8KUKHIpfm1aYzZMqKZY0nUEEAlAudWHcVCDog-loEC-BURvCIbR5kvHaZErv24IKFyXz1bvgjmh8wNRQ4LfwTq8XB07kuoyo"/>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Merchandise</p>
+<h3 class="text-sm font-semibold truncate mb-1">NexPOS Branded Tee</h3>
+<p class="text-primary font-bold">$22.00</p>
+</div>
+</div>
+<!-- Product Card 10 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Almond milk bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWSpAopNr9g46Dy8iqw62LS5PCWrxPsreJj5hepGCUjmO_f2-9Wf1WFKPH06L0a-wqEVOTqk0EZLE4b7BrswVs3CsLu2DobsYGaVn9lWzRDxwc-8S9jpXvaZfxdX8gScoj8_kOejJ9TH7nDoIYB2HnX1DtbpMBsVT7NTGD8ZidoH8LmYzz3W-0-MSlBU5C2NIP9hj28lsNdnU_z7L3yLgi93IQE1eV4KRr07YVf-_Em9-2-fqje4lbMCjD525gbp547kYOC4vW1lUI"/>
+<button class="absolute bottom-2 right-2 w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-icons text-lg">add</span>
+</button>
+</div>
+<div class="p-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Dairy Free</p>
+<h3 class="text-sm font-semibold truncate mb-1">Artisan Almond Milk</h3>
+<p class="text-primary font-bold">$7.00</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Cart Floating Bar -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-transparent pointer-events-none">
+<div class="max-w-4xl mx-auto flex items-center justify-between bg-primary text-white p-4 rounded-xl shadow-2xl pointer-events-auto">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-icons text-2xl">shopping_cart</span>
+<span class="absolute -top-2 -right-2 bg-white text-primary text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        3
+                    </span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-white/70 font-medium">Current Order</span>
+<span class="font-bold">3 Items in cart</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<span class="text-xs text-white/70 block uppercase tracking-wider">Total Amount</span>
+<span class="text-xl font-bold">$31.25</span>
+</div>
+<button class="bg-white text-primary px-6 py-2 rounded-lg font-bold hover:bg-slate-100 transition-colors flex items-center gap-2">
+                    Review Order
+                    <span class="material-icons">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

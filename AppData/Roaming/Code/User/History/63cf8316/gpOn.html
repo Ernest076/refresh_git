@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drake Fan Page</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #050505;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(255, 215, 0, 0.15), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(255, 140, 0, 0.15), transparent 25%);
+      z-index: -1;
+      animation: pulseBg 6s infinite alternate;
+    }
+
+    @keyframes pulseBg {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: gold;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: gold;
+      left: 0;
+      bottom: -5px;
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: gold;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 8% 50px;
+      position: relative;
+    }
+
+    .hero-content {
+      animation: fadeIn 2s ease;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, gold, orange);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255,215,0,0.2);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ddd;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      padding: 15px 35px;
+      border: none;
+      border-radius: 40px;
+      background: linear-gradient(to right, gold, orange);
+      color: black;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 20px rgba(255,215,0,0.4);
+    }
+
+    .hero button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px rgba(255,215,0,0.8);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 120px 8%;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      color: gold;
+      text-align: center;
+    }
+
+    /* Cards */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      transition: 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,215,0,0.1);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      transition: 0.5s ease;
+    }
+
+    .card:hover::before {
+      transform: scale(1.4);
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 0 30px rgba(255,215,0,0.2);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      color: gold;
+    }
+
+    .card p {
+      color: #ddd;
+      line-height: 1.7;
+    }
+
+    /* Music Section */
+    .albums {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .album {
+      width: 220px;
+      height: 220px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: 0.4s ease;
+    }
+
+    .album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.4s ease;
+    }
+
+    .album:hover img {
+      transform: scale(1.1);
+    }
+
+    .album-title {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      background: rgba(0,0,0,0.7);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Scroll Animation */
+    .hidden {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">DRAKE</div>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#music">Music</a>
+      <a href="#legacy">Legacy</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>DRAKE FAN PAGE</h1>
+      <p>
+        Celebrating the music, influence, and legacy of one of the biggest artists in the world.
+      </p>
+
+      <button onclick="scrollToSection()">Explore More</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="hidden">
+    <h2 class="section-title">About Drake</h2>
+
+    <div class="card-container">
+      <div class="card">
+        <h3>Artist</h3>
+        <p>
+          Drake is a globally recognized rapper, singer, songwriter, and entrepreneur known for reshaping modern hip-hop and R&B.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Influence</h3>
+        <p>
+          His music blends emotion, storytelling, and versatility, influencing an entire generation of artists worldwide.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Achievements</h3>
+        <p>
+          Drake has earned numerous chart records, awards, and platinum-selling albums throughout his career.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUSIC -->
+  <section id="music" class="hidden">
+    <h2 class="section-title">Popular Albums</h2>
+
+    <div class="albums">
+      <div class="album">
+        <img src="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" alt="Album">
+        <div class="album-title">Take Care</div>
+      </div>
+
+      <div class="album">
+        <img src="" alt="Album">
+        <div class="album-title">Nothing Was The Same</div>
+      </div>
+
+      <div class="album">
+        <img src="" alt="Album">
+        <div class="album-title">Scorpion</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGACY -->
+  <section id="legacy" class="hidden">
+    <h2 class="section-title">Legacy</h2>
+
+    <div class="card-container">
+      <div class="card">
+        <h3>Streaming Dominance</h3>
+        <p>
+          Drake became one of the most streamed artists in music history with billions of plays worldwide.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Fashion & Culture</h3>
+        <p>
+          Beyond music, Drake shaped trends in fashion, internet culture, and entertainment.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Global Impact</h3>
+        <p>
+          His influence extends globally, connecting fans across continents through music and creativity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with HTML, CSS & JavaScript • Drake Fan Page</p>
+  </footer>
+
+  <script>
+    // Scroll button
+    function scrollToSection() {
+      document.getElementById('about').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    // Scroll animations
+    const hiddenElements = document.querySelectorAll('.hidden');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    });
+
+    hiddenElements.forEach((el) => observer.observe(el));
+
+    // Dynamic navbar glow on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+
+      if (window.scrollY > 50) {
+        nav.style.boxShadow = '0 0 20px rgba(255,215,0,0.25)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

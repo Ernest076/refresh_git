@@ -1,0 +1,17 @@
+:root {
+  --fontFamilyBase: 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto,
+    'Helvetica Neue', sans-serif;
+}
+
+body {
+  font-family: var(--fontFamilyBase);
+  margin: 0;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+}
+
+
+/*# sourceMappingURL=taskpane.css.map*/

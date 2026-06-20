@@ -1,0 +1,291 @@
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Play, Disc, MapPin, Quote, Mic, ChevronDown } from "lucide-react";
+
+// --- Components ---
+
+function NavBar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-border/50 py-4"
+          : "bg-transparent border-transparent py-6"
+      }`}
+    >
+      <div className="container mx-auto px-6 flex justify-between items-center">
+        <div className="font-serif font-bold text-xl tracking-widest text-primary">
+          J. COLE
+        </div>
+        <div className="hidden md:flex gap-8 text-sm font-medium tracking-widest text-muted-foreground">
+          <a href="#origin" className="hover:text-primary transition-colors uppercase">Origin</a>
+          <a href="#discography" className="hover:text-primary transition-colors uppercase">Discography</a>
+          <a href="#philosophy" className="hover:text-primary transition-colors uppercase">Philosophy</a>
+          <a href="#legacy" className="hover:text-primary transition-colors uppercase">Legacy</a>
+        </div>
+      </div>
+    </motion.nav>
+  );
+}
+
+function HeroSection() {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+
+  return (
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-background/60 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent z-10" />
+        <img
+          src="/hero-bg.png"
+          alt="J. Cole Silhouette"
+          className="w-full h-full object-cover object-center opacity-70"
+        />
+      </motion.div>
+
+      <motion.div style={{ opacity }} className="relative z-20 text-center px-4 max-w-4xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-primary font-mono text-sm tracking-[0.3em] uppercase mb-6"
+        >
+          A Cinematic Tribute
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-foreground leading-none mb-6 drop-shadow-2xl"
+        >
+          JERMAINE<br />
+          <span className="text-primary/90 italic">COLE</span>
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="flex flex-col items-center gap-4"
+        >
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl font-light">
+            The introspective, lyrically precise artist who built a global empire on raw authenticity and poetic restraint.
+          </p>
+          <div className="mt-12 animate-bounce">
+            <ChevronDown className="w-8 h-8 text-primary/50" />
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+function OriginSection() {
+  return (
+    <section id="origin" className="py-32 relative z-20 bg-background">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1 }}
+            className="space-y-8"
+          >
+            <div className="flex items-center gap-4 text-primary">
+              <MapPin className="w-6 h-6" />
+              <span className="font-mono text-sm tracking-widest uppercase">The Roots</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold leading-tight">
+              From Frankfurt<br />to <span className="text-primary italic">The Ville</span>
+            </h2>
+            <div className="space-y-6 text-muted-foreground text-lg font-light leading-relaxed">
+              <p>Born January 28, 1985 on a military base in Frankfurt, Germany, Jermaine Lamarr Cole's story truly began when his family relocated to Fayetteville, North Carolina.</p>
+              <p>"The Ville" became more than a hometown; it became the canvas for his storytelling — a place of struggle, ambition, and stark realities that shaped his lyrical philosophy.</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2 }}
+            className="relative"
+          >
+            <div className="absolute -inset-4 border border-primary/20 translate-x-4 translate-y-4" />
+            <img src="/fayetteville.png" alt="Fayetteville Night" className="w-full h-auto object-cover grayscale-[30%] contrast-125" />
+            <div className="absolute bottom-6 left-6 right-6 p-6 bg-background/90 backdrop-blur border border-white/10">
+              <p className="font-serif italic text-xl">"There's beauty in the struggle, ugliness in the success."</p>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DiscographySection() {
+  const albums = [
+    { year: "2011", title: "Cole World: The Sideline Story", desc: "The highly anticipated debut" },
+    { year: "2013", title: "Born Sinner", desc: "Battling demons and industry expectations" },
+    { year: "2014", title: "2014 Forest Hills Drive", desc: "The masterpiece. Platinum with no features." },
+    { year: "2018", title: "KOD", desc: "A dark exploration of addiction and pain" },
+    { year: "2021", title: "The Off-Season", desc: "Sharpening the pen, proving the hunger" },
+    { year: "2023", title: "It's a Boy", desc: "The evolving legacy" },
+  ];
+
+  return (
+    <section id="discography" className="py-32 relative bg-secondary/30 border-y border-white/5">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <Disc className="w-8 h-8 text-primary mx-auto mb-6" />
+          <h2 className="text-4xl md:text-6xl font-serif font-bold mb-4">The Catalog</h2>
+          <p className="text-muted-foreground tracking-widest uppercase font-mono text-sm">Platinum With No Features</p>
+        </motion.div>
+
+        <div className="max-w-4xl mx-auto">
+          {albums.map((album, idx) => (
+            <motion.div
+              key={album.title}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: idx * 0.1 }}
+              className="flex flex-col md:flex-row gap-6 md:gap-12 py-8 border-b border-white/5 group hover:bg-white/5 transition-colors px-6 -mx-6 rounded-lg cursor-default"
+            >
+              <div className="font-mono text-primary text-xl md:text-2xl font-bold shrink-0">{album.year}</div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground group-hover:text-primary transition-colors mb-2">{album.title}</h3>
+                <p className="text-muted-foreground text-lg">{album.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LyricsSection() {
+  const lyrics = [
+    { text: "No such thing as a life that's better than yours.", song: "Love Yourz" },
+    { text: "One thing about the men that's controlling the pen that write history, they always seem to white-out they sins.", song: "G.O.M.D." },
+    { text: "First things first rest in peace Uncle Phil, for real.", song: "No Role Modelz" },
+  ];
+
+  return (
+    <section id="philosophy" className="py-32 relative overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-20">
+        <img src="/studio-mic.png" alt="Studio Mic" className="w-full h-full object-cover blur-sm" />
+      </div>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {lyrics.map((lyric, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.2 }}
+              className="p-8 bg-background/80 backdrop-blur border border-primary/20 relative"
+            >
+              <Quote className="w-10 h-10 text-primary/30 absolute top-4 left-4" />
+              <p className="font-serif text-2xl md:text-3xl leading-snug mb-8 relative z-10 text-foreground pt-4">"{lyric.text}"</p>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-px bg-primary" />
+                <span className="font-mono text-sm tracking-widest text-primary uppercase">{lyric.song}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LegacySection() {
+  return (
+    <section id="legacy" className="py-32 relative bg-background">
+      <div className="container mx-auto px-6">
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="w-full lg:w-1/2"
+          >
+            <div className="aspect-square relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay z-10" />
+              <img src="/crown.png" alt="Crown" className="w-full h-full object-cover" />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="w-full lg:w-1/2 space-y-8"
+          >
+            <h2 className="text-5xl md:text-7xl font-serif font-bold">Dreamville.</h2>
+            <p className="text-xl text-muted-foreground font-light leading-relaxed">
+              More than a label, Dreamville is a sanctuary for authentic voices. Cole built an empire not by chasing trends, but by gathering artists who share his dedication to the craft of storytelling.
+            </p>
+            <p className="text-xl text-muted-foreground font-light leading-relaxed">
+              His legacy is defined not just by the plaques, but by the minds he's inspired and the raw, unfiltered truth he brought back to hip-hop.
+            </p>
+            <button className="mt-8 px-8 py-4 bg-primary text-primary-foreground font-mono tracking-widest uppercase text-sm hover:bg-primary/90 transition-colors flex items-center gap-3 group">
+              <Play className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              Listen to the Catalog
+            </button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="py-12 border-t border-white/10 bg-secondary/50">
+      <div className="container mx-auto px-6 text-center">
+        <h2 className="font-serif text-2xl font-bold text-primary mb-4">J. COLE</h2>
+        <p className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+          A Cinematic Tribute • Crafted with Restraint
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <NavBar />
+      <HeroSection />
+      <OriginSection />
+      <DiscographySection />
+      <LyricsSection />
+      <LegacySection />
+      <Footer />
+    </div>
+  );
+}

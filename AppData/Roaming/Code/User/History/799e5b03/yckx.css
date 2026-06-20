@@ -1,0 +1,20 @@
+
+.container{
+    display: flex;
+    border: solid 3px goldenrod;
+    height: 200px;
+    width: 400px;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+
+
+}
+.box{
+    background-color: darkred;
+    width: 100px;
+    height: 100px;
+    margin: 8px;
+}

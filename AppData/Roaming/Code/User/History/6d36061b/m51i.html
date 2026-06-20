@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Runner</title>
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial;
+}
+canvas {
+    display: block;
+}
+#ui {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 24px;
+    color: white;
+    z-index: 10;
+}
+#gameOver {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    display: none;
+}
+#jumpBtn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 24px;
+    border: none;
+    opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<div id="ui">
+Score: <span id="score">0</span><br>
+High Score: <span id="highScore">0</span>
+</div>
+
+<div id="gameOver">GAME OVER<br>Press R</div>
+<button id="jumpBtn">JUMP</button>
+
+<canvas id="game"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let score = 0;
+let speed = 7;
+let gameOver = false;
+let isNight = false;
+
+let highScore = localStorage.getItem("highScore") || 0;
+document.getElementById("highScore").innerText = highScore;
+
+const player = {
+    x: 100,
+    y: canvas.height - 170,
+    w: 50,
+    h: 50,
+    dy: 0,
+    gravity: 1,
+    jump: -18,
+    grounded: true,
+    boosted: false
+};
+
+let obstacles = [];
+let coins = [];
+let powerups = [];
+
+function beep(freq) {
+    let ctxx = new AudioContext();
+    let osc = ctxx.createOscillator();
+    osc.frequency.value = freq;
+    osc.connect(ctxx.destination);
+    osc.start();
+    osc.stop(ctxx.currentTime + 0.1);
+}
+
+function spawnObstacle() {
+    obstacles.push({
+        x: canvas.width,
+        y: canvas.height - 120,
+        w: 40,
+        h: 50
+    });
+}
+
+function spawnCoin() {
+    coins.push({
+        x: canvas.width,
+        y: canvas.height - 180,
+        r: 15
+    });
+}
+
+function spawnPowerup() {
+    powerups.push({
+        x: canvas.width,
+        y: canvas.height - 180,
+        w: 30,
+        h: 30
+    });
+}
+
+setInterval(spawnObstacle, 1600);
+setInterval(spawnCoin, 2500);
+setInterval(spawnPowerup, 7000);
+
+function drawBackground() {
+    ctx.fillStyle = isNight ? "#111" : "#4ec0ff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#2ecc71";
+    ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+}
+
+setInterval(() => {
+    isNight = !isNight;
+}, 15000);
+
+function collide(a, b) {
+    return (
+        a.x < b.x + b.w &&
+        a.x + a.w > b.x &&
+        a.y < b.y + b.h &&
+        a.y + a.h > b.y
+    );
+}
+
+function update() {
+    if(gameOver) return;
+
+    drawBackground();
+
+    player.dy += player.gravity;
+    player.y += player.dy;
+
+    if(player.y >= canvas.height - 170){
+        player.y = canvas.height - 170;
+        player.dy = 0;
+        player.grounded = true;
+    }
+
+    ctx.fillStyle = player.boosted ? "gold" : "blue";
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+
+    obstacles.forEach((o, i) => {
+        o.x -= speed;
+        ctx.fillStyle = "red";
+        ctx.fillRect(o.x, o.y, o.w, o.h);
+
+        if(collide(player,o)){
+            gameOver = true;
+            document.getElementById("gameOver").style.display="block";
+            if(score > highScore){
+                localStorage.setItem("highScore", score);
+            }
+        }
+
+        if(o.x < -50){
+            obstacles.splice(i,1);
+            score++;
+        }
+    });
+
+    coins.forEach((c,i)=>{
+        c.x -= speed;
+        ctx.fillStyle="yellow";
+        ctx.beginPath();
+        ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+        ctx.fill();
+
+        if(Math.abs(player.x-c.x)<40 && Math.abs(player.y-c.y)<40){
+            score += 5;
+            beep(800);
+            coins.splice(i,1);
+        }
+    });
+
+    powerups.forEach((p,i)=>{
+        p.x -= speed;
+        ctx.fillStyle="purple";
+        ctx.fillRect(p.x,p.y,p.w,p.h);
+
+        if(collide(player,p)){
+            player.boosted = true;
+            speed = 12;
+            beep(500);
+            setTimeout(()=>{
+                player.boosted=false;
+                speed=7;
+            },5000);
+            powerups.splice(i,1);
+        }
+    });
+
+    document.getElementById("score").innerText = score;
+
+    requestAnimationFrame(update);
+}
+
+function jump(){
+    if(player.grounded){
+        player.dy = player.jump;
+        player.grounded = false;
+        beep(300);
+    }
+}
+
+document.addEventListener("keydown",e=>{
+    if(e.code==="Space") jump();
+    if(e.code==="KeyR" && gameOver) location.reload();
+});
+
+document.getElementById("jumpBtn").addEventListener("touchstart",jump);
+document.getElementById("jumpBtn").addEventListener("click",jump);
+
+update();
+</script>
+</body>
+</html>

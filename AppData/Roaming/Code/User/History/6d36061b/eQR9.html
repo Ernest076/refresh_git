@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ultimate Runner</title>
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #87ceeb, white);
+    }
+
+    canvas {
+        display: block;
+    }
+
+    #ui {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    #gameOver {
+        display: none;
+        position: absolute;
+        top: 35%;
+        width: 100%;
+        text-align: center;
+        font-size: 40px;
+        color: black;
+    }
+
+    #mobileBtn {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: none;
+        font-size: 20px;
+        background: rgba(255,255,255,0.7);
+    }
+</style>
+</head>
+<body>
+
+<div id="ui">
+    Score: <span id="score">0</span><br>
+    Coins: <span id="coins">0</span><br>
+    Best: <span id="best">0</span>
+</div>
+
+<div id="gameOver">
+    GAME OVER<br>
+    Press R to Restart
+</div>
+
+<button id="mobileBtn">JUMP</button>
+
+<canvas id="game"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let bestScore = localStorage.getItem("bestScore") || 0;
+document.getElementById("best").innerText = bestScore;
+
+let gameRunning = true;
+let speed = 7;
+let score = 0;
+let coinsCollected = 0;
+
+const player = {
+    x: 120,
+    y: canvas.height - 150,
+    w: 50,
+    h: 50,
+    dy: 0,
+    gravity: 1,
+    jump: -18,
+    grounded: true,
+    shield: false,
+    color: "blue"
+};
+
+let obstacles = [];
+let coins = [];
+let powerUps = [];
+
+function beep(freq, duration) {
+    const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    oscillator.type = "square";
+    oscillator.frequency.value = freq;
+    oscillator.connect(audioCtx.destination);
+    oscillator.start();
+
+    setTimeout(() => {
+        oscillator.stop();
+        audioCtx.close();
+    }, duration);
+}
+
+function spawnObstacle() {
+    obstacles.push({
+        x: canvas.width,
+        y: canvas.height - 100,
+        w: 40,
+        h: 50
+    });
+}
+
+function spawnCoin() {
+    coins.push({
+        x: canvas.width,
+        y: canvas.height - 180,
+        r: 15
+    });
+}
+
+function spawnPowerUp() {
+    powerUps.push({
+        x: canvas.width,
+        y: canvas.height - 180,
+        size: 25
+    });
+}
+
+setInterval(spawnObstacle, 1400);
+setInterval(spawnCoin, 2200);
+setInterval(spawnPowerUp, 9000);
+
+function drawPlayer() {
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+
+    if (player.shield) {
+        ctx.strokeStyle = "gold";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(player.x + 25, player.y + 25, 35, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+}
+
+function collision(a, b) {
+    return (
+        a.x < b.x + b.w &&
+        a.x + a.w > b.x &&
+        a.y < b.y + b.h &&
+        a.y + a.h > b.y
+    );
+}
+
+function loop() {
+    if (!gameRunning) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // ground
+    ctx.fillStyle = "green";
+    ctx.fillRect(0, canvas.height - 90, canvas.width, 90);
+
+    // player physics
+    player.dy += player.gravity;
+    player.y += player.dy;
+
+    if (player.y >= canvas.height - 150) {
+        player.y = canvas.height - 150;
+        player.dy = 0;
+        player.grounded = true;
+    }
+
+    drawPlayer();
+
+    // obstacles
+    ctx.fillStyle = "red";
+    obstacles.forEach((obs, i) => {
+        obs.x -= speed;
+        ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+
+        if (collision(player, obs)) {
+            if (player.shield) {
+                player.shield = false;
+                obstacles.splice(i, 1);
+            } else {
+                endGame();
+            }
+        }
+
+        if (obs.x < -50) {
+            obstacles.splice(i, 1);
+            score++;
+            updateUI();
+
+            if (score % 5 === 0) {
+                speed += 0.5;
+                changeSkin();
+            }
+        }
+    });
+
+    // coins
+    ctx.fillStyle = "gold";
+    coins.forEach((coin, i) => {
+        coin.x -= speed;
+        ctx.beginPath();
+        ctx.arc(coin.x, coin.y, coin.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (
+            player.x < coin.x + 15 &&
+            player.x + player.w > coin.x - 15 &&
+            player.y < coin.y + 15 &&
+            player.y + player.h > coin.y - 15
+        ) {
+            coins.splice(i, 1);
+            coinsCollected++;
+            beep(800, 100);
+            updateUI();
+        }
+    });
+
+    // powerups
+    ctx.fillStyle = "purple";
+    powerUps.forEach((p, i) => {
+        p.x -= speed;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+
+        if (
+            player.x < p.x + p.size &&
+            player.x + player.w > p.x &&
+            player.y < p.y + p.size &&
+            player.y + player.h > p.y
+        ) {
+            powerUps.splice(i, 1);
+            player.shield = true;
+            beep(500, 200);
+
+            setTimeout(() => {
+                player.shield = false;
+            }, 5000);
+        }
+    });
+
+    requestAnimationFrame(loop);
+}
+
+function updateUI() {
+    document.getElementById("score").innerText = score;
+    document.getElementById("coins").innerText = coinsCollected;
+}
+
+function changeSkin() {
+    const skins = ["blue", "black", "orange", "purple", "cyan"];
+    player.color = skins[Math.floor(Math.random() * skins.length)];
+}
+
+function jump() {
+    if (player.grounded) {
+        player.dy = player.jump;
+        player.grounded = false;
+        beep(300, 100);
+    }
+}
+
+function endGame() {
+    gameRunning = false;
+    beep(120, 400);
+    document.getElementById("gameOver").style.display = "block";
+
+    if (score > bestScore) {
+        localStorage.setItem("bestScore", score);
+    }
+}
+
+document.addEventListener("keydown", e => {
+    if (e.code === "Space") jump();
+
+    if (e.code === "KeyR" && !gameRunning) {
+        location.reload();
+    }
+});
+
+document.getElementById("mobileBtn").addEventListener("click", jump);
+
+canvas.addEventListener("touchstart", jump);
+
+loop();
+</script>
+</body>
+</html>

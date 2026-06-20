@@ -1,0 +1,20 @@
+
+.container{
+    display: flex;
+    border: solid 3px goldenrod;
+    height: 200px;
+    width: 400px;
+
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+
+
+}
+.box{
+    background-color: darkred;
+    min-width: 100px;
+    height: 100px;
+    margin: 8px;
+}

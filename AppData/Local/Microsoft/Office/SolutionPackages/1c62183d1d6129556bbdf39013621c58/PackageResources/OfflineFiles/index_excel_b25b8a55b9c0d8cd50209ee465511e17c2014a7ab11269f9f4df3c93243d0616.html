@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Defined Permission</title><script async>(function(){window.__App="excel";var s={},u;function m(){if(u)return s;u=1,Object.defineProperty(s,"__esModule",{value:!0}),s.getBaseCdnSubdomainFromSdxPath=i,s.getAppsForOfficeCdnFromSdxPath=a,s.getOfficeJsPathForSdxPath=r,s.getStandardCdnDomainFromSdxPath=c,s.loadOfficeJs=p;function i(o){const e=new URL(o).hostname;if(e.endsWith(".officeapps.live.com"))return"public.cdn.office.net";const n=e.split(".");if(!(n.length<5||n[1]!=="mro1cdnstorage"))return n.slice(2).join(".")}function a(o){const t=i(o);if(t)return t==="public.cdn.office.net"||t==="public.onecdn.static.microsoft"?"https://appsforoffice.microsoft.com":`https://appsforoffice.${t}/appsforoffice`}function r(o,t,e="office"){if(!["office","excel","word","powerpoint","onenote"].includes(e))throw new Error(`Disallowed appsforoffice file ${e} requested.`);const d=a(o);if(d)return`${d}/lib/${t}/hosted/${e}.js`}function c(o){const t=i(o);if(t)return`https://res.${t}`}async function p(o="office"){const t=window.location.href;let e=r(t,"beta",o);e==null&&(e=`https://appsforoffice.microsoft.com/lib/beta/hosted/${o}.js`);let n;return typeof trustedTypes>"u"||typeof trustedTypes.createPolicy>"u"?n=e:n=trustedTypes.createPolicy("officejs-url",{createScriptURL:()=>e}).createScriptURL(""),new Promise((d,h)=>{const f=document.createElement("script");f.type="text/javascript",f.src=n,f.setAttribute("data-is-sdx","true"),f.onload=()=>{d()},f.onerror=()=>{h(new Error(`${e} failed to load`))},document.head.appendChild(f)})}return s}var P=m();let l;window.__OfficeJsLoadPromise=new Promise(i=>{l=i});function S(i){const a=document.location.origin==="https://fa000000137.resources.office.net"||document.location.origin.startsWith("https://localhost:");let r="";a||(r=P.getAppsForOfficeCdnFromSdxPath(document.location.href)||""),r||(r="https://appsforoffice.microsoft.com"),r+=`/lib/beta/hosted/${i}.js`;const c=document.createElement("script");c.src=r,c.onload=l,c.onerror=function(){console.error(`Failed to load ${i}.js`)},document.head.appendChild(c)}S(window.__App);
+})()</script><link rel="modulepreload" href="./maindeferred.js" crossorigin>
+    <script type="module" crossorigin src="./index.js"></script>
+    <style>body{margin:0}.ms-Layer{display:none}#container{height:100vh}
+</style>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>

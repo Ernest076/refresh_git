@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Runner Pro</title>
+
+<style>
+body { margin:0; overflow:hidden; font-family:Arial; }
+canvas { display:block; }
+
+#ui {
+    position:absolute;
+    top:10px;
+    left:15px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+#gameOver {
+    display:none;
+    position:absolute;
+    top:35%;
+    width:100%;
+    text-align:center;
+    font-size:40px;
+}
+
+#pauseBtn {
+    position:absolute;
+    top:10px;
+    right:20px;
+    padding:10px;
+}
+
+#mobileBtn {
+    position:absolute;
+    bottom:30px;
+    right:30px;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+}
+</style>
+</head>
+
+<body>
+
+<div id="ui">
+Score: <span id="score">0</span><br>
+Coins: <span id="coins">0</span>
+</div>
+
+<button id="pauseBtn">Pause</button>
+<div id="gameOver">GAME OVER<br>Press R</div>
+<button id="mobileBtn">JUMP</button>
+
+<canvas id="game"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let running = true;
+let paused = false;
+let speed = 7;
+let score = 0;
+let coins = 0;
+
+let bg1 = 0, bg2 = 0;
+
+// 🔊 AUDIO SYSTEM
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playTone(freq, duration, type="square", volume=0.1){
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.value = volume;
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    setTimeout(()=>osc.stop(), duration);
+}
+
+function jumpSound(){
+    playTone(600,80);
+    setTimeout(()=>playTone(900,80),80);
+}
+
+function coinSound(){
+    playTone(1000,80);
+    setTimeout(()=>playTone(1400,80),80);
+}
+
+function hitSound(){
+    playTone(200,200,"sawtooth");
+}
+
+function bgMusicLoop(){
+    if(!running || paused) return;
+
+    playTone(400,150);
+    setTimeout(()=>playTone(600,150),150);
+    setTimeout(()=>playTone(800,150),300);
+    setTimeout(()=>playTone(600,150),450);
+
+    setTimeout(bgMusicLoop,800);
+}
+
+// enable audio after user interaction
+document.addEventListener("click", () => {
+    audioCtx.resume();
+    bgMusicLoop();
+}, { once:true });
+
+// PLAYER
+const player = {
+    x:100,
+    y:canvas.height-150,
+    w:50,
+    h:50,
+    dy:0,
+    gravity:1,
+    jump:-18,
+    grounded:true,
+    sliding:false
+};
+
+let obstacles=[];
+let flying=[];
+
+function spawnObstacle(){
+    let offset=Math.random()*60+120;
+    obstacles.push({
+        x:canvas.width,
+        y:canvas.height-offset,
+        w:40,
+        h:50
+    });
+}
+
+function spawnFlying(){
+    flying.push({
+        x:canvas.width,
+        y:canvas.height-250,
+        w:50,
+        h:40
+    });
+}
+
+setInterval(spawnObstacle,1400);
+setInterval(spawnFlying,3000);
+
+function drawBackground(){
+    bg1-=1;
+    bg2-=3;
+
+    ctx.fillStyle="#87CEEB";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="#cceeff";
+    ctx.fillRect(bg1,canvas.height-200,canvas.width,200);
+    ctx.fillRect(bg1+canvas.width,canvas.height-200,canvas.width,200);
+
+    ctx.fillStyle="#99ddff";
+    ctx.fillRect(bg2,canvas.height-150,canvas.width,150);
+    ctx.fillRect(bg2+canvas.width,canvas.height-150,canvas.width,150);
+
+    if(bg1<=-canvas.width) bg1=0;
+    if(bg2<=-canvas.width) bg2=0;
+}
+
+function collision(a,b){
+    return a.x<b.x+b.w &&
+           a.x+a.w>b.x &&
+           a.y<b.y+b.h &&
+           a.y+a.h>b.y;
+}
+
+function loop(){
+    if(!running) return;
+    if(paused){
+        requestAnimationFrame(loop);
+        return;
+    }
+
+    drawBackground();
+
+    player.dy+=player.gravity;
+    player.y+=player.dy;
+
+    if(player.y>=canvas.height-150){
+        player.y=canvas.height-150;
+        player.dy=0;
+        player.grounded=true;
+    }
+
+    ctx.fillStyle="blue";
+    ctx.fillRect(player.x,player.y,player.w,player.h);
+
+    // obstacles
+    ctx.fillStyle="red";
+    obstacles.forEach((o,i)=>{
+        o.x-=speed;
+        ctx.fillRect(o.x,o.y,o.w,o.h);
+
+        if(collision(player,o)) endGame();
+
+        if(o.x<-50){
+            obstacles.splice(i,1);
+            score++;
+            updateUI();
+        }
+    });
+
+    // flying enemies
+    ctx.fillStyle="purple";
+    flying.forEach((f,i)=>{
+        f.x-=speed+2;
+        ctx.fillRect(f.x,f.y,f.w,f.h);
+
+        if(collision(player,f)) endGame();
+
+        if(f.x<-50) flying.splice(i,1);
+    });
+
+    requestAnimationFrame(loop);
+}
+
+function updateUI(){
+    document.getElementById("score").innerText=score;
+    document.getElementById("coins").innerText=coins;
+}
+
+function jump(){
+    if(player.grounded){
+        player.dy=player.jump;
+        player.grounded=false;
+        jumpSound();
+    }
+}
+
+function slide(active){
+    if(active){
+        player.h=25;
+    } else {
+        player.h=50;
+    }
+}
+
+function endGame(){
+    running=false;
+    hitSound();
+    document.getElementById("gameOver").style.display="block";
+}
+
+document.addEventListener("keydown", e=>{
+    if(e.code==="Space") jump();
+    if(e.code==="ArrowDown"||e.code==="KeyS") slide(true);
+    if(e.code==="KeyE") togglePause();
+    if(e.code==="KeyR") location.reload();
+});
+
+document.addEventListener("keyup", e=>{
+    if(e.code==="ArrowDown"||e.code==="KeyS") slide(false);
+});
+
+document.getElementById("mobileBtn").onclick=jump;
+
+function togglePause(){
+    paused=!paused;
+    document.getElementById("pauseBtn").innerText=paused?"Resume":"Pause";
+    if(!paused) bgMusicLoop();
+}
+
+document.getElementById("pauseBtn").onclick=togglePause;
+
+loop();
+</script>
+
+</body>
+</html>

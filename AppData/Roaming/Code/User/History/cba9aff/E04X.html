@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ernest Matata | Portfolio</title>
+<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+body{margin:0;font-family:Arial;background:#0f172a;color:white;scroll-behavior:smooth}
+header{position:fixed;width:100%;background:#020617;padding:10px 20px;z-index:1000}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.nav a{color:white;text-decoration:none;margin:0 10px}
+.section{padding:100px 20px;text-align:center}
+.button{background:#3b82f6;padding:10px 20px;border-radius:5px;color:white;text-decoration:none}
+.home{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:100vh;
+    padding:0 10%;
+    gap:30px;
+}
+.home img{width:180px;border-radius:50%;border:3px solid #3b82f6}
+.skills__bar{height:10px;background:#1e293b;border-radius:5px;margin:5px 0}
+.skills__bar span{display:block;height:100%;background:#3b82f6;border-radius:5px}
+.work img{width:100%;max-width:250px;border-radius:10px;transition:0.3s}
+.work img:hover{transform:scale(1.05)}
+footer{background:#020617;padding:20px;text-align:center}
+.dark-mode{background:white;color:black}
+</style>
+</head>
+
+<body>
+<header>
+<div class="nav">
+<h2>Ernest</h2>
+<div>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#work">Work</a>
+<a href="#contact">Contact</a>
+<button onclick="toggleTheme()">🌙</button>
+</div>
+</div>
+</header>
+
+<section class="home" id="home">
+<div>
+    <h1>Hi, I'm <span style="color:#3b82f6">Ernest</span></h1>
+    <p id="typing"></p>
+    <br>
+    <a href="#contact" class="button">Contact Me</a>
+</div>
+
+<img src="./IMG_2860.jpeg" alt="profile">
+<br><br>
+<a href="#contact" class="button">Contact Me</a>
+</section>
+
+<section class="section" id="about">
+<h2>About Me</h2>
+<p>I am an aspiring web developer passionate about robotics, coding and innovation.</p>
+</section>
+
+<section class="section" id="skills">
+<h2>Skills</h2>
+<div>
+<p>HTML</p>
+<div class="skills__bar"><span style="width:95%"></span></div>
+<p>Electronics</p>
+<div class="skills__bar"><span style="width:85%"></span></div>
+<p>JavaScript</p>
+<div class="skills__bar"><span style="width:75%"></span></div>
+</div>
+</section>
+
+<section class="section work" id="work">
+<h2>Projects</h2>
+<img src="./portofolio 2.jpg">
+<img src="./portofolio 3.jpg">
+<img src="./portofolio 4.jpg">
+<img src="./portofolio 5.jpg">
+</section>
+
+<section class="section" id="contact">
+<h2>Contact</h2>
+<form onsubmit="sendMessage(event)">
+<input type="text" placeholder="Name" required><br><br>
+<input type="email" placeholder="Email" required><br><br>
+<textarea placeholder="Message" required></textarea><br><br>
+<button class="button">Send</button>
+</form>
+<p id="msg"></p>
+</section>
+
+<footer>
+<p>© Ernest Matata</p>
+</footer>
+
+<script>
+// Typing effect
+const text = ["Web Developer","Robotics Enthusiast","Tech Explorer"];
+let i=0,j=0,current="",isDeleting=false;
+function type(){
+if(i<text.length){
+if(!isDeleting && j<=text[i].length){
+current=text[i].substring(0,j++);
+}
+if(isDeleting && j>=0){
+current=text[i].substring(0,j--);
+}
+document.getElementById("typing").innerHTML=current;
+if(j==text[i].length){isDeleting=true;setTimeout(type,1000);return;}
+if(j==0){isDeleting=false;i++;}
+}
+setTimeout(type,100);
+}
+type();
+
+// Theme toggle
+function toggleTheme(){
+document.body.classList.toggle("dark-mode");
+}
+
+// Fake form submit
+function sendMessage(e){
+e.preventDefault();
+document.getElementById("msg").innerText="Message sent successfully!";
+}
+
+// Scroll animation
+const sections=document.querySelectorAll('.section');
+window.addEventListener('scroll',()=>{
+sections.forEach(sec=>{
+const top=window.scrollY;
+if(top>sec.offsetTop-400){
+sec.style.opacity=1;
+sec.style.transform='translateY(0)';
+}
+});
+});
+sections.forEach(sec=>{
+sec.style.opacity=0;
+sec.style.transform='translateY(50px)';
+sec.style.transition='0.5s';
+});
+</script>
+
+</body>
+</html>
+
+
+

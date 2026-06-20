@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ernest Mutua | Portfolio</title>
+<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+body{margin:0;font-family:Arial;background:#0f172a;color:white;scroll-behavior:smooth}
+header{position:fixed;width:100%;background:#020617;padding:10px 20px;z-index:1000}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.nav a{color:white;text-decoration:none;margin:0 10px}
+.section{padding:100px 20px;text-align:center}
+.button{background:#3b82f6;padding:10px 20px;border-radius:5px;color:white;text-decoration:none;margin:5px;display:inline-block}
+
+.home{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;text-align:center}
+.home img{width:140px;border-radius:50%;border:3px solid #3b82f6;box-shadow:0 0 20px #3b82f6;animation:float 3s ease-in-out infinite}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.skills__bar{height:10px;background:#1e293b;border-radius:5px;margin:5px 0;overflow:hidden}
+.skills__bar span{width:0;display:block;height:100%;background:#3b82f6}
+.skill{margin:20px 0}
+.skill-desc{font-size:13px;color:#cbd5f5;margin-top:5px}
+
+.work{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
+.project{width:260px;background:#020617;border-radius:12px;overflow:hidden;transition:0.3s}
+.project:hover{transform:translateY(-5px)}
+.project img{width:100%}
+.project-info{padding:10px;font-size:14px}
+
+.learn{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.learn-box{background:#020617;padding:20px;border-radius:10px;transition:0.3s}
+.learn-box:hover{transform:scale(1.05)}
+
+.scroll-reveal{opacity:0;transform:translateY(30px);transition:1s}
+.scroll-reveal.active{opacity:1;transform:translateY(0)}
+
+footer{background:#020617;padding:20px;text-align:center}
+.dark-mode{background:white;color:black}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+<h2>Ernest</h2>
+<div>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#work">Work</a>
+<a href="#learn">Learning</a>
+<a href="#contact">Contact</a>
+<button onclick="toggleTheme()">🌙</button>
+</div>
+</div>
+</header>
+
+<section class="home" id="home">
+<h1>Hi, I'm <span style="color:#3b82f6">Ernest</span></h1>
+<p id="typing"></p>
+<img src="./IMG_2860.jpeg">
+<br>
+<a href="#contact" class="button">Hire Me</a>
+</section>
+
+<section class="section scroll-reveal" id="about">
+<h2>About Me</h2>
+<p>
+I am an aspiring web developer passionate about building modern digital experiences.
+I enjoy robotics, solving real-world problems, and improving my skills daily.
+I focus on creativity, innovation, and clean design.
+My goal is to grow into a professional developer and cybersecurity specialist.
+</p>
+<img src="./portofolio 6.jpg" style="width:300px;margin-top:20px;border-radius:10px;box-shadow:0 0 15px #3b82f6">
+</section>
+
+<section class="section scroll-reveal" id="skills">
+<h2>Skills</h2>
+
+<div class="skill">
+<p><i class='bx bxl-html5'></i>HTML <span class="skill-percent">0%</span></p>
+<div class="skills__bar"><span data-width="80%"></span></div>
+<p class="skill-desc">Building structured web pages using semantic elements and layouts.</p>
+</div>
+
+<div class="skill">
+<p><i class='bx bx-chip'></i>Electronics <span class="skill-percent">0%</span></p>
+<div class="skills__bar"><span data-width="80%"></span></div>
+<p class="skill-desc">Working with circuits, sensors and microcontrollers for IoT systems.</p>
+</div>
+
+<div class="skill">
+<p><i class='bx bxl-javascript'></i>JavaScript <span class="skill-percent">0%</span></p>
+<div class="skills__bar"><span data-width="80%"></span></div>
+<p class="skill-desc">Adding interactivity, animations and dynamic behavior to websites.</p>
+
+<div class="skill">
+<p><i class='bx bxl-python'></i>Python <span class="skill-percent">0%</span></p>
+<div class="skills__bar"><span data-width="80%"></span></div>   
+<p class="skill-desc">Writing scripts for automation, data analysis and IoT applications.</p>
+</div>
+
+</section>
+
+<section class="section work scroll-reveal" id="work">
+<h2>Projects</h2>
+<div class="project">
+<img src="./portofolio 2.jpg">
+<div class="project-info">An IoT System</div>
+</div>
+<div class="project">
+<img src="./portofolio 3.jpg">
+<div class="project-info">IoT system on breadboard</div>
+</div>
+<div class="project">
+<img src="./portofolio 4.jpg">
+<div class="project-info">Demonstrating Python functionality</div>
+</div>
+</section>
+
+<section class="section scroll-reveal" id="learn">
+<h2>What I Learned</h2>
+<div class="learn">
+<div class="learn-box"><h3>HTML & CSS</h3><p>Here I learnt how to structure and style responsive websites.</p></div>
+<div class="learn-box"><h3>JavaScript</h3><p>Implemented dynamic features and UI interactions for better functionality.</p></div>
+<div class="learn-box"><h3>IoT</h3><p>Built smart systems using sensors and automation on various platforms.</p></div>
+<div class="learn-box"><h3>Python</h3><p>Developed automation scripts and data analysis tools that enables various functions be done .</p></div>
+</div>
+</section>
+
+<section class="section scroll-reveal" id="contact">
+<h2>Contact</h2>
+<p>Reach me instantly via WhatsApp or Email</p>
+
+<!-- WhatsApp (prefilled message) -->
+<a href="https://wa.me/254721172136?text=Hi%20Ernest%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect." class="button">Chat on WhatsApp</a>
+
+<!-- Email (prefilled subject + body) -->
+<a href="mailto:matataernest66@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Ernest,%0D%0A%0D%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%0D%0A%0D%0AThanks." class="button">Send Email</a>
+
+<!-- Quick Contact (auto-opens WhatsApp with your message) -->
+<div style="margin-top:20px">
+<input id="c-name" type="text" placeholder="Your Name" style="padding:8px;width:200px;margin:5px">
+<input id="c-msg" type="text" placeholder="Your Message" style="padding:8px;width:260px;margin:5px">
+<br>
+<button class="button" onclick="quickContact()">Quick Message</button>
+</div>
+
+</section>
+
+<footer>
+<p>© Ernest Mutua</p>
+</footer>
+
+<script>
+const text=["Web Developer","Robotics Enthusiast","Tech Explorer"];
+let i=0,j=0,current="",isDeleting=false;
+function type(){
+if(i<text.length){
+if(!isDeleting && j<=text[i].length){current=text[i].substring(0,j++);} 
+if(isDeleting && j>=0){current=text[i].substring(0,j--);} 
+document.getElementById("typing").innerHTML=current;
+if(j==text[i].length){isDeleting=true;setTimeout(type,1000);return;}
+if(j==0){isDeleting=false;i++;}
+}
+setTimeout(type,100);
+}
+type();
+
+function toggleTheme(){document.body.classList.toggle("dark-mode");}
+
+const skills=document.querySelectorAll('.skills__bar span');
+const percents=document.querySelectorAll('.skill-percent');
+skills.forEach((bar,index)=>{
+let target=parseInt(bar.getAttribute('data-width'));
+let value=0;
+let interval=setInterval(()=>{
+if(value>=target){clearInterval(interval);} 
+else{value++;bar.style.width=value+"%";percents[index].innerText=value+"%";}
+},15);
+});
+
+const reveals=document.querySelectorAll('.scroll-reveal');
+window.addEventListener('scroll',()=>{
+reveals.forEach(el=>{
+let top=el.getBoundingClientRect().top;
+if(top<window.innerHeight-100){el.classList.add('active');}
+});
+});
+
+// SMART CONTACT
+function quickContact(){
+const name=document.getElementById('c-name').value || 'Someone';
+const msg=document.getElementById('c-msg').value || 'Hello';
+const text=`Hi Ernest, I'm ${name}. ${msg}`;
+const encoded=encodeURIComponent(text);
+window.open(`https://wa.me/254721172136?text=${encoded}`,'_blank');
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+

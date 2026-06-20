@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Runner Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(#87CEEB, #ffffff);
+            font-family: Arial;
+        }
+        canvas {
+            display: block;
+        }
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 24px;
+            color: black;
+        }
+        #gameOver {
+            position: absolute;
+            top: 40%;
+            width: 100%;
+            text-align: center;
+            font-size: 40px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="score">Score: 0</div>
+<div id="gameOver">Game Over<br>Press R to Restart</div>
+
+<canvas id="gameCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let player = {
+    x: 100,
+    y: canvas.height - 150,
+    width: 50,
+    height: 50,
+    dy: 0,
+    gravity: 1,
+    jumpPower: -18,
+    grounded: true
+};
+
+let obstacles = [];
+let speed = 6;
+let score = 0;
+let gameOver = false;
+
+function spawnObstacle() {
+    let height = 50;
+    obstacles.push({
+        x: canvas.width,
+        y: canvas.height - 100,
+        width: 40,
+        height: height
+    });
+}
+
+setInterval(spawnObstacle, 1500);
+
+function update() {
+    if (gameOver) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Player physics
+    player.dy += player.gravity;
+    player.y += player.dy;
+
+    if (player.y >= canvas.height - 150) {
+        player.y = canvas.height - 150;
+        player.dy = 0;
+        player.grounded = true;
+    }
+
+    // Draw player
+    ctx.fillStyle = "blue";
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+
+    // Obstacles
+    ctx.fillStyle = "red";
+    obstacles.forEach((obs, index) => {
+        obs.x -= speed;
+        ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+
+        // Collision
+        if (
+            player.x < obs.x + obs.width &&
+            player.x + player.width > obs.x &&
+            player.y < obs.y + obs.height &&
+            player.y + player.height > obs.y
+        ) {
+            gameOver = true;
+            document.getElementById("gameOver").style.display = "block";
+        }
+
+        // Remove off-screen
+        if (obs.x < -50) {
+            obstacles.splice(index, 1);
+            score++;
+            document.getElementById("score").innerText = "Score: " + score;
+
+            // Increase difficulty
+            if (score % 5 === 0) speed += 0.5;
+        }
+    });
+
+    requestAnimationFrame(update);
+}
+
+update();
+
+// Controls
+document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && player.grounded) {
+        player.dy = player.jumpPower;
+        player.grounded = false;
+    }
+
+    if (e.code === "KeyR" && gameOver) {
+        location.reload();
+    }
+});
+</script>
+
+</body>
+</html>

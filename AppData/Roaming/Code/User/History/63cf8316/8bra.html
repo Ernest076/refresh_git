@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drake Fan Page</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #050505;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(255, 215, 0, 0.15), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(255, 140, 0, 0.15), transparent 25%);
+      z-index: -1;
+      animation: pulseBg 6s infinite alternate;
+    }
+
+    @keyframes pulseBg {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: gold;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: gold;
+      left: 0;
+      bottom: -5px;
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: gold;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 8% 50px;
+      position: relative;
+    }
+
+    .hero-content {
+      animation: fadeIn 2s ease;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, gold, orange);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255,215,0,0.2);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ddd;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      padding: 15px 35px;
+      border: none;
+      border-radius: 40px;
+      background: linear-gradient(to right, gold, orange);
+      color: black;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 20px rgba(255,215,0,0.4);
+    }
+
+    .hero button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px rgba(255,215,0,0.8);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 120px 8%;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      color: gold;
+      text-align: center;
+    }
+
+    /* Cards */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      transition: 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,215,0,0.1);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      transition: 0.5s ease;
+    }
+
+    .card:hover::before {
+      transform: scale(1.4);
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 0 30px rgba(255,215,0,0.2);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      color: gold;
+    }
+
+    .card p {
+      color: #ddd;
+      line-height: 1.7;
+    }
+
+    /* Music Section */
+    .albums {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .album {
+      width: 220px;
+      height: 220px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: 0.4s ease;
+    }
+
+    .album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.4s ease;
+    }
+
+    .album:hover img {
+      transform: scale(1.1);
+    }
+
+    .album-title {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      background: rgba(0,0,0,0.7);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Scroll Animation */
+    .hidden {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">DRAKE</div>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#music">Music</a>
+      <a href="#legacy">Legacy</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>DRAKE FAN PAGE</h1>
+      <p>
+        Celebrating the music, influence, and legacy of one of the biggest artists in the world.
+      </p>
+
+      <button onclick="scrollToSection()">Explore More</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="hidden">
+    <h2 class="section-title">About Drake</h2>
+
+    <div class="card-container">
+      <div class="card">
+        <h3>Artist</h3>
+        <p>
+          Drake is a globally recognized rapper, singer, songwriter, and entrepreneur known for reshaping modern hip-hop and R&B.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Influence</h3>
+        <p>
+          His music blends emotion, storytelling, and versatility, influencing an entire generation of artists worldwide.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Achievements</h3>
+        <p>
+          Drake has earned numerous chart records, awards, and platinum-selling albums throughout his career.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUSIC -->
+  <section id="music" class="hidden">
+    <h2 class="section-title">Popular Albums</h2>
+
+    <div class="albums">
+      <div class="album">
+        <img src="data:image/jpeg;base64,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" alt="Album">
+        <div class="album-title">Take Care</div>
+      </div>
+
+      <div class="album">
+        <img src="" alt="Album">
+        <div class="album-title">Nothing Was The Same</div>
+      </div>
+
+      <div class="album">
+        <img src="" alt="Album">
+        <div class="album-title">Scorpion</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGACY -->
+  <section id="legacy" class="hidden">
+    <h2 class="section-title">Legacy</h2>
+
+    <div class="card-container">
+      <div class="card">
+        <h3>Streaming Dominance</h3>
+        <p>
+          Drake became one of the most streamed artists in music history with billions of plays worldwide.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Fashion & Culture</h3>
+        <p>
+          Beyond music, Drake shaped trends in fashion, internet culture, and entertainment.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Global Impact</h3>
+        <p>
+          His influence extends globally, connecting fans across continents through music and creativity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with HTML, CSS & JavaScript • Drake Fan Page</p>
+  </footer>
+
+  <script>
+    // Scroll button
+    function scrollToSection() {
+      document.getElementById('about').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    // Scroll animations
+    const hiddenElements = document.querySelectorAll('.hidden');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    });
+
+    hiddenElements.forEach((el) => observer.observe(el));
+
+    // Dynamic navbar glow on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+
+      if (window.scrollY > 50) {
+        nav.style.boxShadow = '0 0 20px rgba(255,215,0,0.25)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
